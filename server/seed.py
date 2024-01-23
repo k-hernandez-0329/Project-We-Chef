@@ -2,6 +2,7 @@
 
 # Standard library imports
 from random import randint, choice as rc
+from unicodedata import category
 
 # Remote library imports
 from faker import Faker
@@ -37,12 +38,16 @@ def create_chefs():
             "Exploring the world of gastronomy, one exquisite dish at a time.",
             "Passionate about culinary education and sharing the secrets of exceptional cooking.",
         ]
+        city = fake.city()
+        state = fake.state_abbr()
 
+        location = f"{city}, {state}"
         c = Chef(
             name=fake.name(),
             specialty=specialty,
             bio=rc(food_related_bios),
-            location=fake.city(),
+            location=location,
+            # profile_image=fake.image_url(),
         )
         chefs.append(c)
 
@@ -104,13 +109,39 @@ def create_portfolios(chefs):
         "Epicurean delights that redefine culinary artistry",
         "A symposium of taste, texture, and aroma",
     ]
-    for _ in range(1, 10):
+    food_images = [
+        "https://images.pexels.com/photos/5893799/pexels-photo-5893799.jpeg?auto=compress&cs=tinysrgb&w=300",
+        "https://images.pexels.com/photos/2641886/pexels-photo-2641886.jpeg?auto=compress&cs=tinysrgb&w=300",
+        "https://images.pexels.com/photos/1211887/pexels-photo-1211887.jpeg?auto=compress&cs=tinysrgb&w=300",
+        "https://images.pexels.com/photos/1639556/pexels-photo-1639556.jpeg?auto=compress&cs=tinysrgb&w=300",
+        "https://images.pexels.com/photos/604969/pexels-photo-604969.jpeg?auto=compress&cs=tinysrgb&w=300",
+        "https://images.pexels.com/photos/7937471/pexels-photo-7937471.jpeg?auto=compress&cs=tinysrgb&w=300",
+        "https://images.pexels.com/photos/1525234/pexels-photo-1525234.jpeg?auto=compress&cs=tinysrgb&w=300",
+        "https://images.pexels.com/photos/19859339/pexels-photo-19859339/free-photo-of-cupcakes-on-plate.jpeg?auto=compress&cs=tinysrgb&w=300",
+        "https://images.pexels.com/photos/5857832/pexels-photo-5857832.jpeg?auto=compress&cs=tinysrgb&w=300",
+        "https://images.pexels.com/photos/1998633/pexels-photo-1998633.jpeg?auto=compress&cs=tinysrgb&w=300",
+        "https://images.pexels.com/photos/3776942/pexels-photo-3776942.jpeg?auto=compress&cs=tinysrgb&w=300",
+        "https://images.pexels.com/photos/3806365/pexels-photo-3806365.jpeg?auto=compress&cs=tinysrgb&w=300",
+        "https://images.pexels.com/photos/5945568/pexels-photo-5945568.jpeg?auto=compress&cs=tinysrgb&w=300",
+        "https://images.pexels.com/photos/691147/pexels-photo-691147.jpeg?auto=compress&cs=tinysrgb&w=300",
+        "https://images.pexels.com/photos/1332267/pexels-photo-1332267.jpeg?auto=compress&cs=tinysrgb&w=300",
+        "https://images.pexels.com/photos/6605902/pexels-photo-6605902.jpeg?auto=compress&cs=tinysrgb&w=300",
+        "https://images.pexels.com/photos/2647934/pexels-photo-2647934.jpeg?auto=compress&cs=tinysrgb&w=300",
+        "https://images.pexels.com/photos/19347048/pexels-photo-19347048/free-photo-of-delicious-vietnamese-meals-on-plates-on-table.jpeg?auto=compress&cs=tinysrgb&w=300",
+        "https://images.pexels.com/photos/5638555/pexels-photo-5638555.png?auto=compress&cs=tinysrgb&w=300",
+        "https://images.pexels.com/photos/4828314/pexels-photo-4828314.jpeg?auto=compress&cs=tinysrgb&w=300",
+        "https://images.pexels.com/photos/1099680/pexels-photo-1099680.jpeg?auto=compress&cs=tinysrgb&w=300",
+        "https://images.pexels.com/photos/4281820/pexels-photo-4281820.jpeg?auto=compress&cs=tinysrgb&w=300",
+    ]
+    for _ in range(10):
         title = rc(food_related_titles)
         description = rc(food_related_descriptions)
+        image_url = rc(food_images)
+
         p = Portfolio(
             title=title,
             description=description,
-            image_url=fake.image_url(),
+            image_url=image_url,
         )
         portfolios.append(p)
 
@@ -142,6 +173,7 @@ def create_engagements(chefs, portfolios):
         "I'm speechless. Your culinary presentations are unmatched!",
         "Every detail is perfection. A feast for the eyes and taste buds!",
     ]
+
     for _ in range(20):
         e = Engagement(
             comment_body=rc(positive_comments),
@@ -152,6 +184,28 @@ def create_engagements(chefs, portfolios):
         engagements.append(e)
 
     return engagements
+
+
+def assign_portfolios_to_chefs(
+    chefs, food_related_titles, food_related_descriptions, food_images
+):
+    for chef in chefs:
+        if not chef.portfolios:
+            title = rc(food_related_titles)
+            description = rc(food_related_descriptions)
+            image_url = rc(food_images)
+
+            chef_portfolio = Portfolio(
+                title=title,
+                description=description,
+                image_url=image_url,
+            )
+
+            chef.portfolios.append(chef_portfolio)
+            db.session.add(chef_portfolio)  # Add the portfolio to the session
+
+    db.session.commit()  # Commit the session after all portfolios are added
+    return chefs
 
 
 if __name__ == "__main__":

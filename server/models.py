@@ -1,9 +1,17 @@
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
+from sqlalchemy.orm import validates
 
 from config import db
 
 # Models go here!
+
+
+chef_portfolio_association = db.Table(
+    "chef_portfolio_association",
+    db.Column("chef_id", db.Integer, db.ForeignKey("chefs.id")),
+    db.Column("portfolio_id", db.Integer, db.ForeignKey("portfolios.id")),
+)
 
 
 class Chef(db.Model, SerializerMixin):
@@ -13,21 +21,36 @@ class Chef(db.Model, SerializerMixin):
     name = db.Column(db.String)
     specialty = db.Column(db.String)
     bio = db.Column(db.String)
-
     location = db.Column(db.String)
+    # profile_image = db.Column(db.String)
 
     # Relationships
-    # portfolios = db.relationship(
-    #     "Portfolio", back_populates="chef", cascade="all, delete-orphan"
-    # )
+    portfolios = db.relationship(
+        "Portfolio",
+        secondary=chef_portfolio_association,
+        back_populates="chef",
+    )
     engagements = db.relationship(
-        "Engagement", back_populates="chef", cascade="all, delete-orphan"
+        "Engagement",
+        back_populates="chef",
     )
 
-    portfolios = association_proxy("portfolio", "engagements")
+    portfolios_associations = association_proxy("portfolios", "engagements")
     # Serialization Rules
     serialize_rules = ("-engagements",)
+
     # Validation
+    @validates("specialty")
+    def validates_specialty(self, _, value):
+        if len(value) > 25:
+            raise ValueError("Speciality must be 25 characters or less")
+        return value
+
+    @validates("name", "bio", "location")
+    def validates_chef(self, _, value):
+        if not value:
+            raise ValueError("Cannot be left empty")
+        return value
 
 
 class Portfolio(db.Model, SerializerMixin):
@@ -39,12 +62,13 @@ class Portfolio(db.Model, SerializerMixin):
     description = db.Column(db.String)
     image_url = db.Column(db.String)
     # Relationships
-    # chef = db.relationship(
-    #     "Chef",
-    #     back_populates="portfolios",
-    #     cascade="all, delete-orphan",
-    #     single_parent=True,
-    # )
+    chef = db.relationship(
+        "Chef",
+        secondary=chef_portfolio_association,
+        back_populates="portfolios",
+        cascade="all, delete-orphan",
+        single_parent=True,
+    )
     engagements = db.relationship(
         "Engagement", back_populates="portfolio", cascade="all, delete-orphan"
     )
@@ -52,6 +76,19 @@ class Portfolio(db.Model, SerializerMixin):
     chefs = association_proxy("engagements", "chef")
     # Serialization Rules
     serialize_rules = ("-engagements",)
+
+    # validations
+    @validates("title")
+    def validate_title(self, _, title):
+        if not title:
+            raise ValueError("Title cannot be an empty string")
+        return title
+
+    @validates("description")
+    def validate_description(self, _, description):
+        if not description:
+            raise ValueError("Description cannot be an empty string")
+        return description
 
 
 class Engagement(db.Model, SerializerMixin):
@@ -70,3 +107,9 @@ class Engagement(db.Model, SerializerMixin):
 
     # Serialization Rules
     serialize_rules = ("-chef", "-portfolio")
+
+    @validates("comment_body")
+    def validate_comment_body(self, _, value):
+        if not value:
+            raise ValueError("Comment body cannot be empty")
+        return value
