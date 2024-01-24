@@ -61,6 +61,7 @@ class Portfolio(db.Model, SerializerMixin):
     title = db.Column(db.String)
     description = db.Column(db.String)
     image_url = db.Column(db.String)
+    likes = db.Column(db.Integer, default=0)
     # Relationships
     chef = db.relationship(
         "Chef",

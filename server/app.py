@@ -208,10 +208,38 @@ class EngagementsById(Resource):
         return make_response({"message": "Engagement deleted successfully"}, 200)
 
 
+class PortfolioEngagements(Resource):
+    def get(self, portfolio_id):
+        try:
+            engagements = Engagement.query.filter_by(portfolio_id=portfolio_id).all()
+
+            engagements_data = [engagement.to_dict() for engagement in engagements]
+
+            return make_response(engagements_data, 200)
+        except Exception as e:
+            return make_response({"error": str(e)}, 500)
+
+
+class PortfolioLikes(Resource):
+    def patch(self, portfolio_id):
+        portfolio = Portfolio.query.get(portfolio_id)
+
+        if not portfolio:
+            return make_response({"error": "Portfolio not found"}, 404)
+
+        portfolio.likes += 1
+
+        db.session.commit()
+
+        return make_response({"message": "Likes updated successfully"}, 200)
+
+
 api.add_resource(Chefs, "/chefs")
 api.add_resource(ChefsById, "/chefs/<int:id>")
 api.add_resource(Portfolios, "/portfolios")
 api.add_resource(Engagements, "/engagements")
 api.add_resource(EngagementsById, "/engagements/<int:id>")
+api.add_resource(PortfolioEngagements, "/portfolios/<int:portfolio_id>/engagements")
+api.add_resource(PortfolioLikes, "/portfolios/<int:portfolio_id>/likes")
 if __name__ == "__main__":
     app.run(port=5555, debug=True)
