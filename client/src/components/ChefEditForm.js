@@ -52,7 +52,6 @@ const ChefEditForm = ({ chef, onEdit }) => {
           onChange={handleChange}
         />
       </label>
-      {/* Add other input fields for editing other properties */}
       <button type="submit">Save Changes</button>
     </form>
   );

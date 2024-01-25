@@ -33,7 +33,6 @@ function ChefCard ({chef, onDelete, onEdit}) {
           />
         ) : (
           <>
-            {/* Display other chef information */}
             <div>
               <button onClick={handleEditClick}>Edit</button>
               <button onClick={() => onDelete(chef.id)}>Delete</button>

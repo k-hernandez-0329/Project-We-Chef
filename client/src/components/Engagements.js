@@ -41,7 +41,7 @@ function Engagements({portfolios_id, likes, updatePortfolio}) {
    function handleCommentSubmit(e) {
   e.preventDefault();
   
-  fetch(`/portfolios/${portfolios_id}`, {
+  fetch(`/portfolios/${portfolios_id}/comments`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

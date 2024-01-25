@@ -19,11 +19,15 @@ function App() {
 
 
    const [chef, setChefs] = useState([]);
+   const [filteredChefs, setFilteredChefs] = useState([]);
 
    useEffect(() => {
      fetch("/chefs")
        .then((res) => res.json())
-       .then(setChefs);
+       .then((data) => {
+          setChefs(data);
+          setFilteredChefs(data)
+       });
    }, []);
  
    const handleDelete = (id) => {
@@ -74,17 +78,27 @@ const handleEdit = (chefId, editedChef) => {
     });
 };
 
+const handleSearch = (query) => {
+  const newFilteredChefs = chef.filter(
+    (chef) =>
+      chef.name.toLowerCase().includes(query.toLowerCase()) ||
+      chef.specialty.toLowerCase().includes(query.toLowerCase())
+
+  );
+  setFilteredChefs(newFilteredChefs)
+}
+
 
 
 
   return (
     <div className="App">
       <Header />
-      <Navbar />
+      <Navbar onSearch={handleSearch}/>
 
       <Switch>
         <Route path="/chefs">
-          <ChefList chefs={chef} onDelete={handleDelete} onEdit={handleEdit} />
+          <ChefList chefs={filteredChefs}  onDelete={handleDelete} onEdit={handleEdit} />
         </Route>
         <Route path="/portfolios" component={ChefPortfolio} />
         <Route path="/signup" component={ChefForm} />
@@ -99,3 +113,5 @@ const handleEdit = (chefId, editedChef) => {
 }
 
 export default App;
+
+// chefs = { chef };

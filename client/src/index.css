@@ -73,6 +73,9 @@ body {
 nav {
     background-color: #333;
     overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 nav a {
@@ -82,6 +85,7 @@ nav a {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    margin-right: 10px;
 }
 
 nav a:hover {
@@ -174,6 +178,11 @@ button.delete-btn {
 /* Hover effect for the delete button */
 button.delete-btn:hover {
   background-color: #ff3333; 
+}
+
+.search-bar {
+  width: 150px;
+  margin-left: auto;
 }
 
 

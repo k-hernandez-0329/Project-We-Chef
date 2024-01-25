@@ -25,15 +25,6 @@ function ChefList ({chefs, onDelete, onEdit}) {
     </div>
   );
 }
-      // <div className="chef-list">
-      //   {chefs &&
-      //     chefs.map((chef) => (
-      //       <div key={chef.id} className="chef-card">
-      //         <ChefCard chef={chef} />
-      //         <button className="delete-btn" onClick={() => onDelete(chef.id)}>Delete</button>
-      //       </div>
-      //     ))}
-      // </div>
-      
+
    
 export default ChefList;

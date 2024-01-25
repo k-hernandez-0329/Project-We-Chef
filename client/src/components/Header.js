@@ -15,8 +15,9 @@ function Header () {
 
     return (
       <header>
+        <h1>WeChef</h1>
         <div className="WeChef">
-          <img src={WeChef} alt="WeChef logo" />
+          {/* <img src={WeChef} alt="WeChef logo" /> */}
 
         </div>
         

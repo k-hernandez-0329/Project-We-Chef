@@ -69,6 +69,10 @@ class Portfolio(db.Model, SerializerMixin):
         "Engagement", back_populates="portfolio", cascade="all, delete-orphan"
     )
 
+    comments = db.relationship(
+        "Comment", back_populates="portfolio", cascade="all, delete-orphan"
+    )
+
     chefs = association_proxy("engagements", "chef")
     # Serialization Rules
     serialize_rules = ("-engagements",)
@@ -108,3 +112,15 @@ class Engagement(db.Model, SerializerMixin):
         if not value:
             raise ValueError("Comment body cannot be empty")
         return value
+
+
+class Comment(db.Model, SerializerMixin):
+    __tablename__ = "comments"
+
+    id = db.Column(db.Integer, primary_key=True)
+    body = db.Column(db.Text)
+    portfolio_id = db.Column(db.Integer, db.ForeignKey("portfolios.id"), nullable=False)
+
+    portfolio = db.relationship("Portfolio", back_populates="comments")
+
+    serialize_rules = ("-portfolio",)

@@ -11,7 +11,7 @@ import ipdb
 from config import app, db, api
 
 # Add your model imports
-from models import Chef, Portfolio, Engagement
+from models import Chef, Portfolio, Engagement, Comment
 
 # Views go here!
 
@@ -270,6 +270,21 @@ class PortfolioById(Resource):
             return make_response({"errors": ["Validation errors"]}, 400)
 
 
+class Comments(Resource):
+    def post(self, portfolio_id):
+        data = request.get_json()
+        comment = Comment()
+
+        try:
+            comment.body = data.get("body")
+            comment.portfolio_id = portfolio_id
+            db.session.add(comment)
+            db.session.commit()
+            return make_response(comment.to_dict(), 201)
+        except ValueError:
+            return make_response({"errors": ["Validation errors"]}, 400)
+
+
 api.add_resource(Chefs, "/chefs")
 api.add_resource(ChefsById, "/chefs/<int:id>")
 api.add_resource(Portfolios, "/portfolios")
@@ -277,6 +292,7 @@ api.add_resource(PortfolioById, "/portfolios/<int:id>")
 api.add_resource(Engagements, "/engagements")
 api.add_resource(EngagementsById, "/engagements/<int:id>")
 api.add_resource(PortfolioEngagements, "/portfolios/<int:portfolio_id>/engagements")
+api.add_resource(Comments, "/portfolios/<int:portfolio_id>/comments")
 
 if __name__ == "__main__":
     app.run(port=5555, debug=True)
