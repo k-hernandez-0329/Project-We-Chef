@@ -8,7 +8,7 @@ const [portfolios, setPortfolios] = useState([]);
 
 const updatePortfolio = (portfolio) => {
   setPortfolios(prevPortfolios => prevPortfolios.map(p => {
-    if (p.id != portfolio.id){
+    if (p.id !== portfolio.id){
       return p
     } else {
       return portfolio
@@ -28,13 +28,14 @@ useEffect(function () {
 console.log(portfolios)
   return (
     <div>
-      <h2>Chef's Portfolio</h2>
+      <h1>Chef's Portfolios</h1>
       <div className="portfolio-container">
         {portfolios.map((portfolio) => (
           <div key={portfolio.id} className="portfolio-item">
-            <h3>Title: {portfolio.title}</h3>
-            <p>Description: {portfolio.description}</p>
+            <h2>{portfolio.title}</h2>
+            <h4>{portfolio.description}</h4>
             <img src={portfolio.image_url} alt={portfolio.title} />
+            <h5>Comments:</h5>
             <Engagements updatePortfolio={updatePortfolio} likes={portfolio.likes} portfolios_id={portfolio.id} />
           </div>
         ))}

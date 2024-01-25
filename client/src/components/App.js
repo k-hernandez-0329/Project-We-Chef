@@ -13,6 +13,7 @@ import ChefForm from './ChefForm';
 
 
 
+
 function App() {
   
 
@@ -25,10 +26,53 @@ function App() {
        .then(setChefs);
    }, []);
  
+   const handleDelete = (id) => {
+     fetch(`/chefs/${id}`, {
+       method: "DELETE",
+       headers: {
+         "Content-Type": "application/json",
+        
+       },
+     })
+       .then((res) => {
+         if (res.ok) {
+         
+           setChefs((prevChefs) =>
+             prevChefs.filter((chef) => chef.id !== id)
+           );
+         } else {
+    
+           console.error("Failed to delete chef");
+         }
+       })
+       .catch((error) => {
+         console.error("Error during delete request:", error);
+       });
+   };
 
-
-
-
+const handleEdit = (chefId, editedChef) => {
+  fetch(`/chefs/${chefId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(editedChef),
+  })
+    .then((res) => {
+      if (res.ok) {
+        // If the update was successful, refresh the chef list
+        fetch("/chefs")
+          .then((res) => res.json())
+          .then(setChefs);
+      } else {
+        // Handle error scenarios if needed
+        console.error("Failed to update chef");
+      }
+    })
+    .catch((error) => {
+      console.error("Error during update request:", error);
+    });
+};
 
 
 
@@ -40,12 +84,13 @@ function App() {
 
       <Switch>
         <Route path="/chefs">
-          <ChefList chefs={chef} />
+          <ChefList chefs={chef} onDelete={handleDelete} onEdit={handleEdit} />
         </Route>
         <Route path="/portfolios" component={ChefPortfolio} />
         <Route path="/signup" component={ChefForm} />
         <Route path="/" component={Home} />
       </Switch>
+      
     </div>
   );
 

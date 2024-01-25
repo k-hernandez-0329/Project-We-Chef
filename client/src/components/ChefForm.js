@@ -1,5 +1,9 @@
 import React, { useState } from "react";
+
 import "../index.css"
+
+
+
 
 function ChefForm() {
   const [formData, setFormData] = useState({
@@ -8,7 +12,7 @@ function ChefForm() {
     bio: "",
     location: "",
   });
-
+ const [confirmation, setConfirmation] = useState(null);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -31,15 +35,25 @@ function ChefForm() {
 
       const newChef = await response.json();
       console.log("Chef signed up successfully:", newChef);
+      setFormData({
+        name: "",
+        specialty: "",
+        bio: "",
+        location: "",
+      });
+
+      setConfirmation("Chef signed up successfully!");
     } catch (error) {
       console.error("Error signing up chef:", error);
     }
+ 
   };
+  
 
   return (
-    
     <div className="ChefForm">
-      <h2>Signup as a Chef</h2>
+      <h2>Join We Chef!</h2>
+      {confirmation && <p>{confirmation}</p>}
       <form onSubmit={handleSubmit}>
         <label>
           Name:
@@ -82,9 +96,21 @@ function ChefForm() {
         </label>
         <button type="submit">Sign Up</button>
       </form>
-
     </div>
   );
 }
 
+
+
 export default ChefForm;
+
+
+
+
+
+
+
+
+
+
+

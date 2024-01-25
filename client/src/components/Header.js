@@ -1,4 +1,5 @@
 import React from "react";
+import WeChef from"../WeChef.png";
 
 function Header () {
 
@@ -14,7 +15,10 @@ function Header () {
 
     return (
       <header>
-        <h1>We Chef</h1>
+        <div className="WeChef">
+          <img src={WeChef} alt="WeChef logo" />
+
+        </div>
         
       </header>
     );

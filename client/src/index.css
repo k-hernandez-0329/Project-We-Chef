@@ -42,6 +42,7 @@ body {
   margin: 16px;
   border-radius: 8px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  background-color: white;
 } 
 
 .ChefCard div {
@@ -149,8 +150,30 @@ button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-}
+} 
 
 button:hover {
   background-color: #45a049;
 }
+
+
+/* delete */
+button.delete-btn { 
+  
+  background-color: #ff4d4d; /* Red color, you can change it */
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  margin-left: 8px;
+  cursor: pointer; 
+  border-radius: 4px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+} 
+
+/* Hover effect for the delete button */
+button.delete-btn:hover {
+  background-color: #ff3333; 
+}
+
+

@@ -241,6 +241,34 @@ class PortfolioById(Resource):
         except ValueError:
             return make_response({"errors": ["Validation errors"]}, 400)
 
+    def post(self, id):
+        portfolio = Portfolio.query.get(id)
+        if not portfolio:
+            return make_response({"error": "Portfolio not found"}, 404)
+
+        data = request.get_json()
+
+        comment_body = data.get("comment_body")
+        chef_id = data.get("chef_id")
+
+        if not comment_body:
+            return make_response({"errors": ["Comment body is missing"]}, 400)
+        if chef_id is None:
+            return make_response({"errors": ["Chef ID is missing"]}, 400)
+        new_engagement = Engagement(
+            comment_body=comment_body,
+            chef_id=chef_id,
+            portfolio_id=portfolio.id,
+        )
+
+        try:
+            db.session.add(new_engagement)
+            db.session.commit()
+            return make_response(jsonify(new_engagement.to_dict()), 201)
+
+        except ValueError:
+            return make_response({"errors": ["Validation errors"]}, 400)
+
 
 api.add_resource(Chefs, "/chefs")
 api.add_resource(ChefsById, "/chefs/<int:id>")

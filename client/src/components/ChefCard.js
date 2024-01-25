@@ -1,23 +1,57 @@
 
 import React  from "react";
+import { useState } from "react";
+import ChefEditForm from "./ChefEditForm";
 import "../index.css";
 
 
 
 
-function ChefCard ({chef}) {
-   
-  return (
-    <div className="ChefCard">
-      <div>{chef.name}</div>
-      <div>{chef.specialty}</div>
-      <div>{chef.location}</div>
-      <div>{chef.bio}</div>
+function ChefCard ({chef, onDelete, onEdit}) {
+  const [editing, setEditing] = useState(false);
 
+  const handleEditClick = () => {
+    setEditing(true);
+  };
+
+   
+  return  (  
       
-    </div>
+      <div className="ChefCard">
+        <div>Name: {chef.name}</div>
+        <div>Culinary Role: {chef.specialty}</div>
+        <div>Location: {chef.location}</div>
+        <div>Bio: {chef.bio}</div>
+       
+        {editing ? (
+          <ChefEditForm
+            chef={chef}
+            onEdit={(editedChef) => {
+              onEdit(chef.id, editedChef);
+              setEditing(false);
+            }}
+          />
+        ) : (
+          <>
+            {/* Display other chef information */}
+            <div>
+              <button onClick={handleEditClick}>Edit</button>
+              <button onClick={() => onDelete(chef.id)}>Delete</button>
+            </div>
+          </>
+        )}
+      </div>
+   
   );
+   
 }
+
+
+
+
+
+  
+
 
 
 export default ChefCard;
