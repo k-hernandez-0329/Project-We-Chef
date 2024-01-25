@@ -6,8 +6,9 @@ import ChefPortfolio from "./ChefPortfolio";
 import "../index.css";
 import Navbar from "./Navbar";
 import Home from "./Home";
+import ChefForm from './ChefForm';
 
-;
+
 
 
 
@@ -36,12 +37,15 @@ function App() {
     <div className="App">
       <Header />
       <Navbar />
+
       <Switch>
-        <Route path="/chefs"> <ChefList chefs={chef} /></Route>
+        <Route path="/chefs">
+          <ChefList chefs={chef} />
+        </Route>
         <Route path="/portfolios" component={ChefPortfolio} />
+        <Route path="/signup" component={ChefForm} />
         <Route path="/" component={Home} />
       </Switch>
-      
     </div>
   );
 

@@ -40,11 +40,6 @@ class Chef(db.Model, SerializerMixin):
     serialize_rules = ("-engagements",)
 
     # Validation
-    @validates("specialty")
-    def validates_specialty(self, _, value):
-        if len(value) > 25:
-            raise ValueError("Speciality must be 25 characters or less")
-        return value
 
     @validates("name", "bio", "location")
     def validates_chef(self, _, value):
@@ -97,7 +92,6 @@ class Engagement(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     comment_body = db.Column(db.Text)
-    likes = db.Column(db.Integer)
 
     chef_id = db.Column(db.Integer, db.ForeignKey("chefs.id"), nullable=False)
     portfolio_id = db.Column(db.Integer, db.ForeignKey("portfolios.id"), nullable=False)

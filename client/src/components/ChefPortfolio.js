@@ -1,10 +1,20 @@
 import React, { useEffect, useState } from "react";
-import Engagement from "./Engagement";
+import Engagements from "./Engagements";
 import "../index.css"
 
 function ChefPortfolio (){
 
 const [portfolios, setPortfolios] = useState([]);
+
+const updatePortfolio = (portfolio) => {
+  setPortfolios(prevPortfolios => prevPortfolios.map(p => {
+    if (p.id != portfolio.id){
+      return p
+    } else {
+      return portfolio
+    }
+  }))
+}
 
 
 useEffect(function () {
@@ -15,7 +25,7 @@ useEffect(function () {
     .then(setPortfolios);
 }, []);
   
-
+console.log(portfolios)
   return (
     <div>
       <h2>Chef's Portfolio</h2>
@@ -25,7 +35,7 @@ useEffect(function () {
             <h3>Title: {portfolio.title}</h3>
             <p>Description: {portfolio.description}</p>
             <img src={portfolio.image_url} alt={portfolio.title} />
-            <Engagement portfolios_id={portfolio.id} />
+            <Engagements updatePortfolio={updatePortfolio} likes={portfolio.likes} portfolios_id={portfolio.id} />
           </div>
         ))}
       </div>

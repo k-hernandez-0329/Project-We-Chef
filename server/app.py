@@ -3,8 +3,9 @@
 # Standard library imports
 
 # Remote library imports
-from flask import make_response, request
+from flask import make_response, request, jsonify
 from flask_restful import Resource
+import ipdb
 
 # Local imports
 from config import app, db, api
@@ -27,7 +28,7 @@ class Chefs(Resource):
     def post(self):
         data = request.get_json()
         chef = Chef()
-        portfolio = Portfolio()
+        # portfolio = Portfolio()
 
         try:
             chef.name = data.get("name")
@@ -36,16 +37,16 @@ class Chefs(Resource):
             chef.location = data.get("location")
             # chef.profile_image = data.get("profile_image")
 
-            portfolio.title = data.get("title")
-            portfolio.description = data.get("description")
+            # portfolio.title = data.get("title")
+            # portfolio.description = data.get("description")
             # portfolio.image_url = data.get("portfolio_image_url")
 
             db.session.add(chef)
             db.session.commit()
 
-            return make_response(chef.to_dict(rules=("portfolio", "engagement")), 201)
-        except ValueError:
-            return make_response({"errors": ["validation errors"]}, 400)
+            return make_response(chef.to_dict(rules=("portfolios", "engagements")), 201)
+        except ValueError as e:
+            return make_response({"error": e.__str__()}, 400)
 
 
 class ChefsById(Resource):
@@ -191,7 +192,7 @@ class EngagementsById(Resource):
             db.session.add(engagement)
             db.session.commit()
 
-            return make_response(engagement.to_dict(), 204)
+            return make_response(engagement.to_dict(), 200)
 
         except ValueError:
             return make_response({"errors": ["Validation errors"]}, 400)
@@ -220,26 +221,34 @@ class PortfolioEngagements(Resource):
             return make_response({"error": str(e)}, 500)
 
 
-class PortfolioLikes(Resource):
-    def patch(self, portfolio_id):
-        portfolio = Portfolio.query.get(portfolio_id)
+class PortfolioById(Resource):
+    def patch(self, id):
+        portfolio = Portfolio.query.get(id)
 
         if not portfolio:
             return make_response({"error": "Portfolio not found"}, 404)
 
-        portfolio.likes += 1
+        data = request.get_json()
 
-        db.session.commit()
+        try:
+            for attr in data:
+                setattr(portfolio, attr, data[attr])
 
-        return make_response({"message": "Likes updated successfully"}, 200)
+            db.session.add(portfolio)
+            db.session.commit()
+            return make_response(jsonify(portfolio.to_dict()), 200)
+
+        except ValueError:
+            return make_response({"errors": ["Validation errors"]}, 400)
 
 
 api.add_resource(Chefs, "/chefs")
 api.add_resource(ChefsById, "/chefs/<int:id>")
 api.add_resource(Portfolios, "/portfolios")
+api.add_resource(PortfolioById, "/portfolios/<int:id>")
 api.add_resource(Engagements, "/engagements")
 api.add_resource(EngagementsById, "/engagements/<int:id>")
 api.add_resource(PortfolioEngagements, "/portfolios/<int:portfolio_id>/engagements")
-api.add_resource(PortfolioLikes, "/portfolios/<int:portfolio_id>/likes")
+
 if __name__ == "__main__":
     app.run(port=5555, debug=True)
