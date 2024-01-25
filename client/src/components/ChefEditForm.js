@@ -1,18 +1,22 @@
 import React, { useState } from "react";
 
+
+
+
 const ChefEditForm = ({ chef, onEdit }) => {
   const [editedChef, setEditedChef] = useState({
     name: chef.name,
     bio: chef.bio,
     location: chef.location,
-    specialty: chef.specialty
+    specialty: chef.specialty,
   });
 
   const handleChange = (e) => {
-    setEditedChef({
-      ...editedChef,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+    setEditedChef((prevEditedChef) => ({
+      ...prevEditedChef,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = (e) => {
@@ -30,6 +34,8 @@ const ChefEditForm = ({ chef, onEdit }) => {
           value={editedChef.name}
           onChange={handleChange}
         />
+      </label>
+      <label>
         Bio:
         <input
           type="text"
@@ -37,6 +43,8 @@ const ChefEditForm = ({ chef, onEdit }) => {
           value={editedChef.bio}
           onChange={handleChange}
         />
+      </label>
+      <label>
         Location:
         <input
           type="text"
@@ -44,6 +52,8 @@ const ChefEditForm = ({ chef, onEdit }) => {
           value={editedChef.location}
           onChange={handleChange}
         />
+      </label>
+      <label>
         Specialty:
         <input
           type="text"
@@ -56,5 +66,6 @@ const ChefEditForm = ({ chef, onEdit }) => {
     </form>
   );
 };
+
 
 export default ChefEditForm;

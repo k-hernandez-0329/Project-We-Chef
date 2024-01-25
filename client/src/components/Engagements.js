@@ -73,6 +73,7 @@ function Engagements({portfolios_id, likes, updatePortfolio}) {
             <div className="comment-body">{engagement.comment_body}</div>
           </div>
         ))}
+
         <form onSubmit={handleCommentSubmit}>
           <label>
             Comment:
@@ -84,6 +85,7 @@ function Engagements({portfolios_id, likes, updatePortfolio}) {
           </label>
           <button type="submit">Post Comment</button>
         </form>
+        
         <button className="like-button" onClick={handleClick}>
           Likes: {likes}
         </button>

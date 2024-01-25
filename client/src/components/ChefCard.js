@@ -14,39 +14,33 @@ function ChefCard ({chef, onDelete, onEdit}) {
     setEditing(true);
   };
 
-   
-  return  (  
-      
-      <div className="ChefCard">
-        <div>Name: {chef.name}</div>
-        <div>Culinary Role: {chef.specialty}</div>
-        <div>Location: {chef.location}</div>
-        <div>Bio: {chef.bio}</div>
-       
-        {editing ? (
-          <ChefEditForm
-            chef={chef}
-            onEdit={(editedChef) => {
-              onEdit(chef.id, editedChef);
-              setEditing(false);
-            }}
-          />
-        ) : (
-          <>
-            <div>
-              <button onClick={handleEditClick}>Edit</button>
-              <button onClick={() => onDelete(chef.id)}>Delete</button>
-            </div>
-          </>
-        )}
-      </div>
-   
+  const handleEditSave = (editedChef) => {
+    onEdit(chef.id, editedChef);
+    setEditing(false);
+  };
+const isNewChef = chef.id > 15;
+const isDeletableChef = chef.id > 15;
+
+
+  return (
+    <div className="ChefCard">
+      <div>Name: {chef.name}</div>
+      <div>Culinary Role: {chef.specialty}</div>
+      <div>Location: {chef.location}</div>
+      <div>Bio: {chef.bio}</div>
+      {isNewChef && (
+        <div className="button-container">
+          <button onClick={handleEditClick}>Edit</button>
+        </div>
+      )}
+      {isDeletableChef && (
+        <button onClick={() => onDelete(chef.id)}>Delete</button>
+      )}
+     
+      {editing && <ChefEditForm chef={chef} onEdit={handleEditSave} />}
+    </div>
   );
-   
 }
-
-
-
 
 
   

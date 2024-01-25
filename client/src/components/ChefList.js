@@ -3,11 +3,8 @@ import ChefCard from './ChefCard';
 
 
 
+
 function ChefList ({chefs, onDelete, onEdit}) {
-
-
-
-
 
 
 

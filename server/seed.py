@@ -6,7 +6,7 @@ from unicodedata import category
 
 # Remote library imports
 from faker import Faker
-
+import os
 
 # Local imports
 from app import app
@@ -15,7 +15,7 @@ from models import db, Chef, Portfolio, Engagement
 
 def create_chefs():
     chefs = []
-    for _ in range(10):
+    for _ in range(12):
         specialty = rc(
             [
                 "Pastry Chef",
@@ -109,6 +109,7 @@ def create_portfolios(chefs):
         "Epicurean delights that redefine culinary artistry",
         "A symposium of taste, texture, and aroma",
     ]
+
     food_images = [
         "https://images.pexels.com/photos/5893799/pexels-photo-5893799.jpeg?auto=compress&cs=tinysrgb&w=300",
         "https://images.pexels.com/photos/2641886/pexels-photo-2641886.jpeg?auto=compress&cs=tinysrgb&w=300",
@@ -177,7 +178,6 @@ def create_engagements(chefs, portfolios):
     for _ in range(20):
         e = Engagement(
             comment_body=rc(positive_comments),
-            likes=randint(0, 15),
             chef_id=rc(chefs).id,
             portfolio_id=rc(portfolios).id,
         )
