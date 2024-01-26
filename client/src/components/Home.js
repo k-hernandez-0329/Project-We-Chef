@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 // import { useEffect, useState } from "react";
 
 import "../index.css";
@@ -13,7 +14,7 @@ function Home(){
 
 
 return (
-  <div className='centered-content'>
+  <div className="centered-content">
     <h2>Welcome to Chef Social Network</h2>
     <p>Discover and connect with talented chefs around the world!</p>
     <div className="culinary-container">
@@ -30,6 +31,9 @@ return (
         to share their stories and connect. Let's appreciate the extraordinary
         talents that make the culinary world truly exceptional.
       </p>
+      <Link to="/signup">
+        <button className="signup-button">Sign Up Now</button>
+      </Link>
     </div>
   </div>
 );

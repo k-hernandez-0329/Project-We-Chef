@@ -23,21 +23,23 @@ const isDeletableChef = chef.id > 15;
 
 
   return (
-    <div className="ChefCard">
-      <div>Name: {chef.name}</div>
-      <div>Culinary Role: {chef.specialty}</div>
-      <div>Location: {chef.location}</div>
-      <div>Bio: {chef.bio}</div>
-      {isNewChef && (
-        <div className="button-container">
-          <button onClick={handleEditClick}>Edit</button>
-        </div>
-      )}
-      {isDeletableChef && (
-        <button onClick={() => onDelete(chef.id)}>Delete</button>
-      )}
-     
-      {editing && <ChefEditForm chef={chef} onEdit={handleEditSave} />}
+    <div className="ChefCardContainer">
+      <div className="ChefCard">
+        <div>Name: {chef.name}</div>
+        <div>Culinary Role: {chef.specialty}</div>
+        <div>Location: {chef.location}</div>
+        <div>Bio: {chef.bio}</div>
+        {isNewChef && (
+          <div className="edit-button">
+            <button onClick={handleEditClick}>Edit</button>
+          </div>
+        )}
+        {isDeletableChef && (
+          <button className="DeleteButton"onClick={() => onDelete(chef.id)}>Delete</button>
+        )}
+
+        {editing && <ChefEditForm chef={chef} onEdit={handleEditSave} />}
+      </div>
     </div>
   );
 }

@@ -7,6 +7,7 @@ import "../index.css";
 import Navbar from "./Navbar";
 import Home from "./Home";
 import ChefForm from './ChefForm';
+import Footer from "./Footer";
 
 
 
@@ -100,17 +101,21 @@ const handleSearch = (query) => {
   return (
     <div className="App">
       <Header />
-      <Navbar onSearch={handleSearch}/>
+      <Navbar onSearch={handleSearch} />
 
       <Switch>
         <Route path="/chefs">
-          <ChefList chefs={filteredChefs}  onDelete={handleDelete} onEdit={handleEdit} />
+          <ChefList
+            chefs={filteredChefs}
+            onDelete={handleDelete}
+            onEdit={handleEdit}
+          />
         </Route>
         <Route path="/portfolios" component={ChefPortfolio} />
         <Route path="/signup" component={ChefForm} />
         <Route path="/" component={Home} />
       </Switch>
-      
+      <Footer />
     </div>
   );
 

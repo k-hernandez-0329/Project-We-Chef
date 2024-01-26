@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 
 function Portfolio({portfolio, updatePortfolio}) {
   const {id, likes} = portfolio
-  const [engagements, setEngagements] = useState([]);
+  // const [engagements, setEngagements] = useState([]);
   const [commentBody, setCommentBody] = useState("");
 
-   useEffect(() => {
-     fetch(`/portfolios/${id}/engagements`)
-     .then((res) => res.json())
-     .then((data) => {
-       setEngagements(data);
-     });
-   }, [id]);
+  //  useEffect(() => {
+  //    fetch(`/portfolios/${id}/engagements`)
+  //    .then((res) => res.json())
+  //    .then((data) => {
+  //      setEngagements(data);
+  //    });
+  //  }, [id]);
 
 
 
@@ -69,7 +69,7 @@ function Portfolio({portfolio, updatePortfolio}) {
 
     return (
       <div className="Engagement">
-       <form onSubmit={handleCommentSubmit}>
+        <form onSubmit={handleCommentSubmit}>
           <label>
             Comment:
             <input
@@ -80,7 +80,6 @@ function Portfolio({portfolio, updatePortfolio}) {
           </label>
           <button type="submit">Post Comment</button>
         </form>
-
         <button className="like-button" onClick={handleClick}>
           Likes: {likes}
         </button>
