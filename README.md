@@ -32,15 +32,15 @@ The user would be able to
 
 
 One-to-One Relationships:
-engagements with chefs
+engagements with chefs,
 engagements with portfolios
 
 Many-to-Many Relationship:
 chefs with portfolios (through chef_portfolio_association)
 
 One-to-Many Relationships:
-chefs with engagements
-portfolios with engagements
+chefs with engagements,
+portfolios with engagements,
 portfolios with comments
 
 
