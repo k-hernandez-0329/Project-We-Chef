@@ -28,18 +28,12 @@ class Chefs(Resource):
     def post(self):
         data = request.get_json()
         chef = Chef()
-        # portfolio = Portfolio()
 
         try:
             chef.name = data.get("name")
             chef.specialty = data.get("specialty")
             chef.bio = data.get("bio")
             chef.location = data.get("location")
-            # chef.profile_image = data.get("profile_image")
-
-            # portfolio.title = data.get("title")
-            # portfolio.description = data.get("description")
-            # portfolio.image_url = data.get("portfolio_image_url")
 
             db.session.add(chef)
             db.session.commit()
@@ -280,7 +274,7 @@ class Comments(Resource):
             comment.portfolio_id = portfolio_id
             db.session.add(comment)
             db.session.commit()
-            return make_response(comment.to_dict(), 201)
+            return make_response(comment.portfolio.to_dict(), 201)
         except ValueError:
             return make_response({"errors": ["Validation errors"]}, 400)
 

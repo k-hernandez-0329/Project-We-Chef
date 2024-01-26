@@ -124,3 +124,9 @@ class Comment(db.Model, SerializerMixin):
     portfolio = db.relationship("Portfolio", back_populates="comments")
 
     serialize_rules = ("-portfolio",)
+
+    @validates("body")
+    def validate_body(self, _, body):
+        if not body:
+            raise ValueError("Body cannot be blank.")
+        return body

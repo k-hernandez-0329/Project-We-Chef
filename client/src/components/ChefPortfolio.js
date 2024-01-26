@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Engagements from "./Engagements";
+import Portfolio from "./Portfolio";
 import "../index.css"
 
 function ChefPortfolio (){
@@ -36,7 +36,14 @@ console.log(portfolios)
             <h4>{portfolio.description}</h4>
             <img src={portfolio.image_url} alt={portfolio.title} />
             <h5>Comments:</h5>
-            <Engagements updatePortfolio={updatePortfolio} likes={portfolio.likes} portfolios_id={portfolio.id} />
+            {portfolio.comments.map(c => {
+              return (
+                <div key={c.id}>
+                  <div className="comment-body">{c.body}</div>
+                </div>
+              );
+            })}
+            <Portfolio updatePortfolio={updatePortfolio} portfolio={portfolio} />
           </div>
         ))}
       </div>
@@ -44,31 +51,5 @@ console.log(portfolios)
   );
     
 
-
-
-
-/* //   return (
-//     <div>
-//       <h2>Chef's Portfolio</h2>
-//       <div className="portfolio-container">
-//         {portfolios.map((portfolio) => (
-//           <div key={portfolio.id} className="portfolio-item">
-//             <h3>Title: {portfolio.title}</h3>
-//             <p>Description: {portfolio.description}</p>
-//             <img src={portfolio.image_url} alt={portfolio.title} />
-//             <div className="Engagement">
-//               <h3>Engagements:</h3>
-//               {engagements &&
-//                 engagements.map((engagement, index) => (
-//                   <Engagement key={index} engagement={engagement} />
-//                 ))}
-//             </div>
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }
-   */
-      }
+}
 export default ChefPortfolio;

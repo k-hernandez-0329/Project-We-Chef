@@ -6,7 +6,7 @@ from unicodedata import category
 
 # Remote library imports
 from faker import Faker
-import os
+
 
 # Local imports
 from app import app
@@ -47,7 +47,6 @@ def create_chefs():
             specialty=specialty,
             bio=rc(food_related_bios),
             location=location,
-            # profile_image=fake.image_url(),
         )
         chefs.append(c)
 
@@ -202,9 +201,9 @@ def assign_portfolios_to_chefs(
             )
 
             chef.portfolios.append(chef_portfolio)
-            db.session.add(chef_portfolio)  # Add the portfolio to the session
+            db.session.add(chef_portfolio)
 
-    db.session.commit()  # Commit the session after all portfolios are added
+    db.session.commit()
     return chefs
 
 

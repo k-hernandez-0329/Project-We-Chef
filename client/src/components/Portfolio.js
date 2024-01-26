@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from "react";
 
-function Engagements({portfolios_id, likes, updatePortfolio}) {
+function Portfolio({portfolio, updatePortfolio}) {
+  const {id, likes} = portfolio
   const [engagements, setEngagements] = useState([]);
   const [commentBody, setCommentBody] = useState("");
 
    useEffect(() => {
-     fetch(`/portfolios/${portfolios_id}/engagements`)
+     fetch(`/portfolios/${id}/engagements`)
      .then((res) => res.json())
      .then((data) => {
        setEngagements(data);
      });
-   }, [portfolios_id]);
+   }, [id]);
 
 
 
 
 
    function handleClick() {
-     fetch(`/portfolios/${portfolios_id}`, {
+     fetch(`/portfolios/${id}`, {
        method: "PATCH",
        headers: {
          "Content-Type": "application/json",
@@ -38,15 +39,15 @@ function Engagements({portfolios_id, likes, updatePortfolio}) {
        });
    }
   
-   function handleCommentSubmit(e) {
+  function handleCommentSubmit(e) {
   e.preventDefault();
   
-  fetch(`/portfolios/${portfolios_id}/comments`, {
+  fetch(`/portfolios/${id}/comments`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ comment_body: commentBody }),
+    body: JSON.stringify({ body: commentBody }),
   })
     .then((res) => {
       if (!res.ok) {
@@ -54,8 +55,8 @@ function Engagements({portfolios_id, likes, updatePortfolio}) {
       }
       return res.json();
     })
-    .then((newEngagement) => {
-      setEngagements([...engagements, newEngagement]);
+    .then((portfolio) => {
+      updatePortfolio(portfolio);
       setCommentBody("");
     })
     .catch((error) => {
@@ -68,13 +69,7 @@ function Engagements({portfolios_id, likes, updatePortfolio}) {
 
     return (
       <div className="Engagement">
-        {engagements.map((engagement, index) => (
-          <div key={index}>
-            <div className="comment-body">{engagement.comment_body}</div>
-          </div>
-        ))}
-
-        <form onSubmit={handleCommentSubmit}>
+       <form onSubmit={handleCommentSubmit}>
           <label>
             Comment:
             <input
@@ -85,7 +80,7 @@ function Engagements({portfolios_id, likes, updatePortfolio}) {
           </label>
           <button type="submit">Post Comment</button>
         </form>
-        
+
         <button className="like-button" onClick={handleClick}>
           Likes: {likes}
         </button>
@@ -93,4 +88,4 @@ function Engagements({portfolios_id, likes, updatePortfolio}) {
     );
 }
 
-export default Engagements;
+export default Portfolio;
