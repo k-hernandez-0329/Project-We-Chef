@@ -28,7 +28,7 @@ function Portfolio({ portfolio, updatePortfolio }) {
   }
 
   const validationSchema = Yup.object({
-    commentBody: Yup.string().min(5, "Comment must contain more than 1 character").required(),
+    commentBody: Yup.string().required(),
   });
 
   return (
