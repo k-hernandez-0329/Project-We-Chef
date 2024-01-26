@@ -16,11 +16,16 @@ import Footer from "./Footer";
 
 
 function App() {
-  
 
 
    const [chef, setChefs] = useState([]);
    const [filteredChefs, setFilteredChefs] = useState([]);
+   useEffect(() => {
+     document.title = "WeChef";
+     return () => {
+       document.title = "Default Tab Name";
+     };
+   }, []); 
 
    useEffect(() => {
      fetch("/chefs")
@@ -35,6 +40,10 @@ function App() {
 
 
   const handleDelete = (id) => {
+    const shouldDelete = window.confirm("Are you sure you want to delete?");
+    if (!shouldDelete) {
+      return; 
+    }
     fetch(`/chefs/${id}`, {
       method: "DELETE",
       headers: {
@@ -93,6 +102,8 @@ const handleSearch = (query) => {
 
   );
   setFilteredChefs(newFilteredChefs)
+
+  
 }
 
 

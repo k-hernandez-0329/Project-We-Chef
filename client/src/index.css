@@ -6,7 +6,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: lightblue;
+  
+  
 }
+
+
+
 
 
 .ChefCard {
@@ -88,35 +93,22 @@ body {
 }
 
 
-
+/* like button */
 
  .like-button {
   background-color: #3498db;
   color: #fff;
-  padding: 10px 16px; /* Slightly larger padding for a more comfortable button */
-  border: 1px solid #2980b9; /* Add a border for a distinct look */
+  padding: 10px 16px; 
+  border: 1px solid #2980b9;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease; /* Smooth transition on background-color */
+  transition: background-color 0.3s ease; 
   margin-top: 60px;
 }
 
 .like-button:hover {
   background-color: #2980b9;
 }
-
-/* .like-button {
-  background-color: #3498db;
-  color: #fff;
-  padding: 8px 12px;
-  border: none;
-  cursor: pointer;
-}
-
-.like-button:hover {
-  background-color: #2980b9;
-} */
-
 
 
 /* form */
@@ -128,10 +120,12 @@ body {
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-color: #f2f2f2;
+  margin-top: 100px;
 
 }
 
 h2 {
+  text-align: center;
   font-size: 24px;
   margin-bottom: 20px;
 }
@@ -161,7 +155,7 @@ button[type="submit"] {
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px; /* Adjust the font-size as needed */
-  margin-left: 100px;
+  margin-left: 0px;
 }
 
 button[type="submit"]:hover {
@@ -173,48 +167,60 @@ button[type="submit"]:hover {
 /* edit */
 .edit-button {
   display: flex;
-  justify-content: flex-end; /* Align buttons to the right */
-  margin-top: 10px; /* Adjust top margin as needed */
+  justify-content: flex-end; 
+  margin-top: 10px; 
+ 
 }
 
 button {
-  padding: 8px 12px; /* Adjust padding for smaller buttons */
-  font-size: 14px; /* Adjust font size for smaller buttons */
-  margin-left: 8px; /* Add some space between buttons */
+  padding: 8px 12px; 
+  font-size: 14px; 
+  margin-left: 8px;
+  background-color: #3498db; 
+  color: #fff; 
+  border: none; 
+  border-radius: 5px; 
+  cursor: pointer;
 }
-
+button:hover {
+  background-color: #2980b9;
+}
+/* delete */
 .DeleteButton {
-  background-color: #dc3545; /* Red color, you can customize */
-  color: #fff; /* White text color */
+  background-color: #dc3545; 
+  color: #fff; 
   border: none;
   padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
   margin-top: 10px;
-  margin-left: 545px; /* Adjust as needed */
+  margin-left: 545px; 
 }
 
 .DeleteButton:hover {
-  background-color: #c82333; /* Darker red on hover */
+  background-color: #c82333; 
 }
 
 
 /* Home */
+
 .centered-content{
   text-align: center;
+  margin-top: 40px;
 }
 
 .culinary-container {
   border: 1px solid #3498db;
   border-radius: 8px;
   padding: 30px;
-  margin-top: 20px;
+  margin-top: 70px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   max-width: 800px; /* Set a maximum width for the box */
   margin-left: auto; /* Center the box by adjusting margins */
   margin-right: auto;
   background-color: white;
+  margin-top: 200px;
 }
 
 .culinary-paragraph {
@@ -304,7 +310,8 @@ button {
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px; /* Adjust the font-size as needed */
-  transition: background-color 0.3s ease; /* Smooth transition on background-color */
+  transition: background-color 0.3s ease; 
+  margin-top: 25px;
 }
 
 .signup-button:hover {

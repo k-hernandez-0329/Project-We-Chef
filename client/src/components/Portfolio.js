@@ -2,19 +2,7 @@ import React, {  useState } from "react";
 
 function Portfolio({portfolio, updatePortfolio}) {
   const {id, likes} = portfolio
-  // const [engagements, setEngagements] = useState([]);
   const [commentBody, setCommentBody] = useState("");
-
-  //  useEffect(() => {
-  //    fetch(`/portfolios/${id}/engagements`)
-  //    .then((res) => res.json())
-  //    .then((data) => {
-  //      setEngagements(data);
-  //    });
-  //  }, [id]);
-
-
-
 
 
    function handleClick() {

@@ -15,9 +15,12 @@ function Home(){
 
 return (
   <div className="centered-content">
-    <h2>Welcome to Chef Social Network</h2>
-    <p>Discover and connect with talented chefs around the world!</p>
+
     <div className="culinary-container">
+      <h1>Welcome to WeChef!</h1>
+      <h3>A Culinary Social Network</h3>
+      <p>Discover and connect with talented chefs around the world!</p>
+
       <p className="culinary-paragraph">
         Welcome to the culinary world, where chefs are artists crafting unique
         dining experiences. Unlike traditional professions, chefs face a

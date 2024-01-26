@@ -18,9 +18,8 @@ function ChefCard ({chef, onDelete, onEdit}) {
     onEdit(chef.id, editedChef);
     setEditing(false);
   };
-const isNewChef = chef.id > 15;
-const isDeletableChef = chef.id > 15;
-
+  const isNewChef = chef.id > 15;
+  const isDeletableChef = chef.id > 15;
 
   return (
     <div className="ChefCardContainer">
@@ -29,13 +28,17 @@ const isDeletableChef = chef.id > 15;
         <div>Culinary Role: {chef.specialty}</div>
         <div>Location: {chef.location}</div>
         <div>Bio: {chef.bio}</div>
-        {isNewChef && (
+
+        {!editing && isNewChef && (
           <div className="edit-button">
             <button onClick={handleEditClick}>Edit</button>
           </div>
         )}
-        {isDeletableChef && (
-          <button className="DeleteButton"onClick={() => onDelete(chef.id)}>Delete</button>
+
+        {!editing && isDeletableChef && (
+          <button className="DeleteButton" onClick={() => onDelete(chef.id)}>
+            Delete
+          </button>
         )}
 
         {editing && <ChefEditForm chef={chef} onEdit={handleEditSave} />}
