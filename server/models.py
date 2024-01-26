@@ -22,7 +22,7 @@ class Chef(db.Model, SerializerMixin):
     specialty = db.Column(db.String)
     bio = db.Column(db.String)
     location = db.Column(db.String)
-    # profile_image = db.Column(db.String)
+  
 
     # Relationships
     portfolios = db.relationship(
@@ -130,3 +130,6 @@ class Comment(db.Model, SerializerMixin):
         if not body:
             raise ValueError("Body cannot be blank.")
         return body
+
+
+

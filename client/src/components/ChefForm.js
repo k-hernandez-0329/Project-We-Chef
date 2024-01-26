@@ -13,8 +13,8 @@ function ChefForm() {
     name: Yup.string().required("Name is required"),
     specialty: Yup.string().required("Specialty is required"),
     bio: Yup.string().required("Cannot be left empty"),
-    location: Yup.string().required("Location is required")
-    .matches(/^[A-Za-z\s,.'-]+$/, "Invalid Location."),
+    location: Yup.string().required("City, State")
+    .matches(/^[A-Za-z\s,.'-]+$/, "Location cannot contain numbers."),
   });
 
   const formik = useFormik({
@@ -58,39 +58,39 @@ function ChefForm() {
       {formik.status && <p style={{ color: "green" }}>{formik.status}</p>}
       <form onSubmit={formik.handleSubmit}>
         <label>
-          Name:
           <input
             type="text"
             name="name"
+            placeholder="Name"
             value={formik.values.name}
             onChange={formik.handleChange}
           />
           <p style={{ color: "red" }}> {formik.errors.name}</p>
         </label>
         <label>
-          Culinary Role:
           <input
             type="text"
             name="specialty"
+            placeholder="Culinary Role"
             value={formik.values.specialty}
             onChange={formik.handleChange}
           />
           <p style={{ color: "red" }}> {formik.errors.specialty}</p>
         </label>
         <label>
-          Bio:
           <textarea
             type="text"
             name="bio"
+            placeholder="Bio"
             value={formik.values.bio}
             onChange={formik.handleChange}
           />
         </label>
         <label>
-          Location:
           <input
             type="text"
             name="location"
+            placeholder="City, State ex: Los Angeles, CA"
             value={formik.values.location}
             onChange={formik.handleChange}
           />

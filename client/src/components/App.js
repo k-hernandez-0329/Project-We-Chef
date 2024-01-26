@@ -41,7 +41,7 @@ function App() {
 
 
   const handleDelete = (id) => {
-    const shouldDelete = window.confirm("Are you sure you want to delete?");
+    const shouldDelete = window.confirm("Are you sure you want to delete profile from network?");
     if (!shouldDelete) {
       return; 
     }

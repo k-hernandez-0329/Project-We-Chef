@@ -5,7 +5,6 @@ const ScrollToTopButton = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Show/hide the button based on scroll position
     const handleScroll = () => {
       if (window.scrollY > 20) {
         setIsVisible(true);
