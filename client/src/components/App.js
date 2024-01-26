@@ -8,6 +8,7 @@ import Navbar from "./Navbar";
 import Home from "./Home";
 import ChefForm from './ChefForm';
 import Footer from "./Footer";
+import ScrollToTopButton from "./Scroll";
 
 
 
@@ -113,7 +114,7 @@ const handleSearch = (query) => {
     <div className="App">
       <Header />
       <Navbar onSearch={handleSearch} />
-
+      <ScrollToTopButton />
       <Switch>
         <Route path="/chefs">
           <ChefList
