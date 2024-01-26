@@ -28,7 +28,7 @@ useEffect(function () {
 console.log(portfolios)
   return (
     <div>
-      <h1>Chef's Portfolios</h1>
+      <h1 className="portfolio-text">Chef's Portfolios</h1>
       <div className="portfolio-container">
         {portfolios.map((portfolio) => (
           <div key={portfolio.id} className="portfolio-item">
@@ -36,14 +36,17 @@ console.log(portfolios)
             <h4>{portfolio.description}</h4>
             <img src={portfolio.image_url} alt={portfolio.title} />
             <h5>Comments:</h5>
-            {portfolio.comments.map(c => {
+            {portfolio.comments.map((c) => {
               return (
                 <div key={c.id}>
                   <div className="comment-body">{c.body}</div>
                 </div>
               );
             })}
-            <Portfolio updatePortfolio={updatePortfolio} portfolio={portfolio} />
+            <Portfolio
+              updatePortfolio={updatePortfolio}
+              portfolio={portfolio}
+            />
           </div>
         ))}
       </div>
